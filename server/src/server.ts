@@ -14,7 +14,8 @@ app.get('/users', (request, response) => {
     response.json([
         'Gabriel',
         'Talita',
-        'Brutus'
+        'Brutus',
+        'Gata'
     ]);
 });
 // porta 3333 //
