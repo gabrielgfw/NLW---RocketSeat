@@ -9,6 +9,9 @@ const app = express();
 // response = Devolve uma resposta para o navegador ou aplicação. //
 // rota     = Endereço completo da requisição 'url'.              //
 // recurso  = Qual endidade estamos acessando do sistema.         //
+//                                                                //
+// request param = Parâmetros que vem na própria rota.            //
+// query param   = Parâmetros opcionais, exemplo: filtro por nome //
 // -------------------------------------------------------------- //
 
 const users = [
@@ -20,17 +23,19 @@ const users = [
 
 // Rota GET resgatando todos os usuários.
 app.get('/users', (request, response) => {
-    console.log('Listagem de usuários');
-
+    // Neste caso, quem determinará o query param será o próprio client da requisção.
+    const search = String(request.query.search);
+    // if ternário = condição ? seValorForTrue : seValorForFalse.
+    const filteredUsers = search ? users.filter(user => user.includes(search)) : users;
     // Retorno definido em formato JSON.
-    return response.json(users);
+    return response.json(filteredUsers);
 });
 
 // Rota GET para resgatar um usuário pelo ID.
 app.get('/users/:id', (request, response) => {
+    // Converte o parâmetro em 'Number'.
     const id = Number(request.params.id);
     const user = users[id];
-
     return response.json(user);
 
 });
@@ -44,7 +49,6 @@ app.post('/users', (request, response) => {
 
     return response.json(user);
 })
-
 
 // porta 3333 //
 app.listen(3333);
