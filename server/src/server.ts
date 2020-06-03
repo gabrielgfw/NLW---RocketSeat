@@ -2,6 +2,9 @@ import express from 'express';
 
 const app = express();
 
+// Adicionando a extensão express para compreender arquivos do tipo JSON.
+app.use(express.json());
+
 // -------------------------------------------------------------- //
 // Criando rotas 'localhost:3333/users'.                          //
 //                                                                //
@@ -12,6 +15,7 @@ const app = express();
 //                                                                //
 // request param = Parâmetros que vem na própria rota.            //
 // query param   = Parâmetros opcionais, exemplo: filtro por nome //
+// request body  = Parâmetros para a criação e atualização info.  //
 // -------------------------------------------------------------- //
 
 const users = [
@@ -42,9 +46,13 @@ app.get('/users/:id', (request, response) => {
 
 // Rota POST teste.
 app.post('/users', (request, response) => {
+    const data = request.body;
+    
+    console.log(data);
+
     const user = {
-        name: 'Gabriel',
-        email: 'gabriel@email.com'
+        name: data.name,
+        email: data.email,
     };
 
     return response.json(user);
