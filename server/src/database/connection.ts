@@ -1,9 +1,10 @@
 import knex from 'knex';
 import path from 'path';
 
+// dirname = variável global que retorna diretório do arquivo que está sendo executado.
 const connection = knex({
     client: 'sqlite3',
-    connection: {  // dirname = variável global que retorna diretório do arquivo que está sendo executado.
+    connection: {  
         filename: path.resolve(__dirname, 'database.sqlite'),
     },
 });
